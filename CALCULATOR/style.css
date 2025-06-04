@@ -1,0 +1,369 @@
+body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background-color: white; /* Dark background */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    color: lightgreen;
+    overflow: hidden;
+}
+
+.calculator-app {
+    display: flex;
+    background-color: black; /* App background */
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+    width: 90%;
+    max-width: 900px; /* Adjust max-width for overall app */
+    height: 80vh;
+    max-height: 700px; /* Adjust max-height */
+}
+
+/* Header */
+.header {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    text-align: center;
+    padding: 10px 20px;
+    color: black;
+    background-color: white; 
+    height: 50px;
+    box-sizing: border-box;
+    z-index: 10; 
+}
+
+.app-info {
+    display: flex;
+    align-items: center;
+    font-size: large;
+    gap: 15px;
+    font-size: 1.1em;
+    font-weight: 600;
+}
+
+.menu-icon {
+    font-size: 28px; /* Larger icon */
+    cursor: pointer;
+    user-select: none;
+    color: #f0f0f0;
+}
+
+/* Main Content Layout */
+.main-content {
+    display: flex;
+    flex-grow: 1;
+    padding-top: 50px; /* Space for the fixed header */
+}
+
+.left-panel {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    /* Adjusted padding-left to shift buttons slightly left */
+    padding: 20px 20px 20px 15px; /* Top, Right, Bottom unchanged, Left reduced */
+    box-sizing: border-box;
+}
+
+.right-panel {
+    width: 300px; /* Fixed width for history/memory panel */
+    background-color: #202020; /* Darker background for right panel */
+    display: flex;
+    flex-direction: column;
+    border-left: 1px solid #333; /* Separator */
+}
+
+/* Display */
+.display-container {
+    margin-bottom: 20px;
+    padding: 0 10px;
+}
+
+.previous-calculation {
+    color: #a0a0a0;
+    font-size: 1.2em;
+    min-height: 20px; /* Reserve space */
+    text-align: right;
+    margin-bottom: 5px;
+    word-wrap: break-word;
+    word-break: break-all;
+}
+
+.display {
+    color: #f0f0f0;
+    font-size: 3.5em;
+    text-align: right;
+    min-height: 60px; /* Reserve space */
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+    word-wrap: break-word;
+    word-break: break-all;
+}
+
+.buttons {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(6, 1fr); /* Ensure 6 rows for consistent layout */
+    gap: 8px;
+    flex-grow: 1;
+    min-height: 0; /* Important for flex items in a column to shrink correctly */
+    padding-bottom: 5px; /* Added slight padding at the bottom for grid */
+}
+
+.button {
+    background-color: #4a4a4a; 
+    color: lightgreen;
+    border: none;
+    border-radius: 4px;
+    padding: 15px;
+    font-size: 1.5em;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* Removed min-height: 50px here to let grid control height,
+       but added to media queries for smaller screens if needed */
+    user-select: none;
+}
+
+.button:hover {
+    background-color: #5a5a5a;
+}
+
+.button:active {
+    transform: scale(0.98);
+}
+
+.button.number {
+    background-color: #3b3b3b; /* Number buttons */
+}
+
+.button.number:hover {
+    background-color: #4c4c4c;
+}
+
+.button.operator,
+.button.special-op {
+    background-color: #404040; /* Operators and special ops */
+}
+
+.button.operator:hover,
+.button.special-op:hover {
+    background-color: #505050;
+}
+
+.button.op-ce,
+.button.op-c,
+.button.op-backspace {
+    background-color: #404040; /* Clear/CE/Backspace */
+}
+
+.button.equals {
+    background-color: #f76767; /* Equals button */
+    color: #ffffff;
+    grid-column: span 2; /* Span two columns */
+}
+
+.button.equals:hover {
+    background-color: #e65656;
+}
+
+.button .material-symbols-outlined {
+    font-size: 1.2em; /* Adjust icon size in buttons */
+}
+
+/* Right Panel Tabs */
+.panel-tabs {
+    display: flex;
+    justify-content: space-around; /* Distribute tabs */
+    padding: 15px 0;
+    border-bottom: 1px solid #333;
+    flex-shrink: 0; /* Prevent tabs from shrinking */
+}
+
+.tab-button {
+    background: none;
+    border: none;
+    color: #a0a0a0;
+    font-size: 1.1em;
+    padding: 5px 15px;
+    cursor: pointer;
+    transition: color 0.2s ease, border-bottom 0.2s ease;
+    border-bottom: 2px solid transparent;
+}
+
+.tab-button.active {
+    color: #f76767;
+    border-bottom-color: #f76767;
+    /* Styles for distinct active tab color/appearance */
+    font-weight: bold; /* Make active tab text bold */
+    background-color: #303030; /* Slightly different background for active tab */
+    border-radius: 4px 4px 0 0; /* Rounded top corners for active tab */
+}
+
+.tab-button:hover {
+    color: #f0f0f0;
+}
+
+/* Tab Content */
+.tab-content {
+    flex-grow: 1;
+    /* Removed top padding to make history fill from the top */
+    padding: 0 15px 15px 15px; /* Top padding set to 0, retains other paddings */
+    overflow-y: auto; /* Enable scrolling for history */
+    display: flex;
+    flex-direction: column;
+    /* Changed to flex-start to make history items appear from the top */
+    justify-content: flex-start;
+    position: relative; /* For absolute positioning of message */
+}
+
+.tab-content.hidden {
+    display: none;
+}
+
+.history-list {
+    flex-grow: 1; /* Allow history list to take available space */
+    display: flex;
+    flex-direction: column;
+    /* Changed to flex-start to keep new items at the top and oldest at the bottom */
+    justify-content: flex-start;
+}
+
+.history-item {
+    padding: 8px 0;
+    border-bottom: 1px solid #333; /* Separator between history items */
+    margin-bottom: 5px;
+}
+
+.history-expression {
+    color: #a0a0a0;
+    font-size: 0.9em;
+    text-align: right;
+    word-wrap: break-word;
+    word-break: break-all;
+}
+
+.history-result {
+    color: #f0f0f0;
+    font-size: 1.2em;
+    font-weight: 600;
+    text-align: right;
+    word-wrap: break-word;
+    word-break: break-all;
+}
+
+.no-history-message,
+.no-memory-message { /* Memory message style kept for now, but element is removed */
+    color: #a0a0a0;
+    text-align: center;
+    font-size: 0.9em;
+    margin-top: 20px;
+    position: absolute; /* Position absolutely to center vertically */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 90%; /* Ensure it doesn't overflow */
+}
+
+/* History Controls (Delete button) */
+.history-controls {
+    display: flex;
+    justify-content: flex-end;
+    padding: 10px 15px;
+    border-top: 1px solid #333;
+    flex-shrink: 0;
+}
+
+.clear-history-btn {
+    background: none;
+    border: none;
+    color: #a0a0a0;
+    cursor: pointer;
+    font-size: 1.2em;
+    padding: 5px 10px;
+    border-radius: 4px;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.clear-history-btn:hover {
+    background-color: #3a3a3a;
+    color: #f0f0f0;
+}
+
+.clear-history-btn .material-symbols-outlined {
+    font-size: 1.2em;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .calculator-app {
+        flex-direction: column;
+        width: 100%;
+        height: 100vh;
+        border-radius: 0;
+    }
+
+    .main-content {
+        flex-direction: column;
+        padding-top: 60px; /* Adjust for header height */
+    }
+
+    .left-panel {
+        padding: 15px;
+        order: 2; /* Put left panel (calculator) below history on small screens */
+    }
+
+    .right-panel {
+        width: 100%;
+        height: 250px; /* Give some height to history panel */
+        order: 1; /* Put right panel (history) above calculator */
+        border-left: none;
+        border-bottom: 1px solid #333;
+        padding-bottom: 5px; /* Add some padding bottom */
+    }
+
+    .display {
+        font-size: 3em;
+    }
+
+    .buttons {
+        gap: 6px;
+    }
+
+    .button {
+        font-size: 1.3em;
+        padding: 12px;
+        min-height: 45px;
+    }
+}
+
+@media (max-width: 480px) {
+    .display {
+        font-size: 2.5em;
+    }
+
+    .previous-calculation {
+        font-size: 1em;
+    }
+
+    .button {
+        font-size: 1.1em;
+        padding: 10px;
+        min-height: 40px;
+    }
+}
+
+/* Crucial for hiding elements with the 'hidden' class */
+.hidden {
+    display: none !important; /* Added !important for stronger override */
+}

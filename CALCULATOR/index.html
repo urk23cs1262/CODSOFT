@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator</title>
+    <link rel="icon" type="image/x-icon" href="cal.png">
+    <link href="https://fonts.googleapis.com/css2?family=Segoe+UI:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="calculator-app">
+        <div class="header">
+            <div class="app-info">
+                <!-- <span class="calculator-text">Calculator</span> -->
+            </div>
+        </div>
+
+        <div class="main-content">
+            <div class="left-panel">
+                <div class="display-container">
+                    <div class="previous-calculation" id="previous-calculation"></div>
+                    <div class="display" id="display">0</div>
+                </div>
+
+                <div class="buttons">
+                    <button class="button special-op" data-action="percentage">%</button>
+                    <button class="button op-ce" data-action="ce">CE</button>
+                    <button class="button op-c" data-action="c">C</button>
+                    <button class="button op-backspace" data-action="backspace">
+                        <span class="material-symbols-outlined">backspace</span>
+                    </button>
+
+                    <button class="button special-op" data-action="reciprocal">¹/ₓ</button>
+                    <button class="button special-op" data-action="square">x²</button>
+                    <button class="button special-op" data-action="sqrt">²√x</button>
+                    <button class="button operator" data-action="divide">÷</button>
+
+                    <button class="button number">7</button>
+                    <button class="button number">8</button>
+                    <button class="button number">9</button>
+                    <button class="button operator" data-action="multiply">×</button>
+
+                    <button class="button number">4</button>
+                    <button class="button number">5</button>
+                    <button class="button number">6</button>
+                    <button class="button operator" data-action="subtract">-</button>
+
+                    <button class="button number">1</button>
+                    <button class="button number">2</button>
+                    <button class="button number">3</button>
+                    <button class="button operator" data-action="add">+</button>
+
+                    <button class="button special-op" data-action="toggle-sign">⁺⁄₋</button>
+                    <button class="button number">0</button>
+                    <button class="button number decimal" data-action="decimal">.</button>
+                    <button class="button equals" data-action="equals">=</button>
+                </div>
+            </div>
+
+            <div class="right-panel">
+                <div class="panel-tabs">
+                    <button class="tab-button active" data-tab="history">History</button>
+                    </div>
+                <div class="tab-content active" id="history-content">
+                    <div class="history-list" id="history-list">
+                        </div>
+                    <div class="no-history-message" id="no-history-message">There's no history yet.</div>
+                </div>
+                <div class="history-controls">
+                    <button class="clear-history-btn" id="clear-history-btn" title="Clear history">
+                        <span class="material-symbols-outlined">delete</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
